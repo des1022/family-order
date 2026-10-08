@@ -1,0 +1,83 @@
+<!-- ===== 密码锁：首次进入为「设置密码」，之后为「验证密码」 ===== -->
+<view class="lock" wx:if="{{locked}}">
+  <view class="lock-card">
+    <view class="lock-title">{{pwdMode === 'set' ? '设置管理密码' : '请输入管理密码'}}</view>
+    <view class="lock-sub">
+      {{pwdMode === 'set' ? '设置一个 4 位数字密码，用于保护管理入口' : '4 位数字，用于进入菜品与订单管理'}}
+    </view>
+
+    <view class="pwd-box">
+      <view class="pwd-cell {{pwdChar.length > index ? 'pwd-cell--on' : ''}}" wx:for="{{[0,1,2,3]}}" wx:key="*this">
+        {{pwdChar[index] ? '●' : ''}}
+      </view>
+    </view>
+
+    <view class="lock-err" wx:if="{{pwdError}}">{{pwdError}}</view>
+
+    <!-- 数字键盘 -->
+    <view class="keypad">
+      <view class="key" wx:for="{{keys}}" wx:key="*this" data-key="{{item}}" bindtap="onKey">{{item}}</view>
+      <view class="key key--fn" bindtap="onKeyDelete">删除</view>
+    </view>
+
+    <view class="lock-tip" wx:if="{{pwdMode === 'verify' && hasLocalPwd}}">忘记密码可在其他已登录家人手机查看，或清空设置集合重置</view>
+  </view>
+</view>
+
+<!-- ===== 管理主页 ===== -->
+<block wx:else>
+  <view class="page">
+    <view class="entry-bar">
+      <view class="entry-item" bindtap="goCategory">
+        <text class="entry-title">分类管理</text>
+        <text class="entry-arrow">›</text>
+      </view>
+      <view class="entry-item" bindtap="goOrderAdmin">
+        <text class="entry-title">订单管理</text>
+        <text class="entry-arrow">›</text>
+      </view>
+    </view>
+
+    <view class="filter-bar">
+      <scroll-view scroll-x show-scrollbar="{{false}}">
+        <view class="filter-inner">
+          <view class="filter-item {{filterCat === item ? 'filter-item--active' : ''}}" wx:for="{{catOptions}}" wx:key="*this" data-cat="{{item}}" bindtap="onFilter">{{item}}</view>
+        </view>
+      </scroll-view>
+    </view>
+
+    <skeleton wx:if="{{loading && !groups.length}}" count="3" />
+
+    <block wx:for="{{groups}}" wx:key="name">
+      <view class="group-title">
+        {{item.name}}<text class="group-count">（{{item.dishes.length}}）</text>
+      </view>
+      <view class="card dish-card" wx:for="{{item.dishes}}" wx:for-item="dish" wx:key="_id">
+        <image class="dish-img" src="{{dish.image}}" mode="aspectFill" lazy-load />
+        <view class="dish-main">
+          <view class="dish-top">
+            <text class="dish-name">{{dish.name}}</text>
+            <text class="tag {{dish.status === 1 ? '' : 'tag-gray'}}">{{dish.status === 1 ? '已上架' : '已下架'}}</text>
+          </view>
+          <view class="dish-desc" wx:if="{{dish.desc}}">{{dish.desc}}</view>
+          <view class="dish-price" wx:if="{{dish.price > 0}}">¥{{dish.priceText}}</view>
+          <view class="dish-price dish-price--none" wx:else>未设置价格</view>
+        </view>
+        <view class="dish-ops">
+          <view class="op-btn {{dish.status === 1 ? 'op-btn--warn' : 'op-btn--ok'}}" data-id="{{dish._id}}" data-status="{{dish.status}}" bindtap="onToggleStatus">
+            {{dish.status === 1 ? '下架' : '上架'}}
+          </view>
+          <view class="op-btn" data-id="{{dish._id}}" bindtap="onEdit">编辑</view>
+          <view class="op-btn op-btn--danger" data-id="{{dish._id}}" data-image="{{dish.image}}" data-name="{{dish.name}}" bindtap="onDelete">删除</view>
+        </view>
+      </view>
+    </block>
+
+    <empty wx:if="{{!loading && !groups.length}}" text="还没有菜品" sub="点下方按钮添加第一道菜" />
+  </view>
+
+  <!-- 新增按钮 -->
+  <view class="fab-wrap safe-bottom">
+    <view class="fab" bindtap="goAdd">＋ 新增菜品</view>
+  </view>
+</block>

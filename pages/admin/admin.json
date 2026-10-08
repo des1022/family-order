@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "家庭管理",
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark",
+  "usingComponents": {
+    "empty": "/components/empty/index",
+    "skeleton": "/components/skeleton/index"
+  }
+}

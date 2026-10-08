@@ -1,0 +1,51 @@
+<!-- 底部悬浮购物车：收起时显示总数/金额，点击展开明细弹窗 -->
+<view class="cart-root" wx:if="{{totalNum > 0}}">
+  <!-- 遮罩 -->
+  <view class="cart-mask {{showDetail ? 'show' : ''}}" wx:if="{{showDetail}}" bindtap="closeDetail" catchtouchmove="noop"></view>
+
+  <!-- 明细弹窗 -->
+  <view class="cart-detail {{showDetail ? 'show' : ''}}" wx:if="{{showDetail}}">
+    <view class="detail-hd">
+      <text class="detail-title">已选菜品</text>
+      <text class="detail-clear" bindtap="onClear">清空购物车</text>
+    </view>
+
+    <scroll-view class="detail-bd" scroll-y>
+      <view class="goods-item" wx:for="{{list}}" wx:key="_id">
+        <image class="goods-img" src="{{item.image}}" mode="aspectFill" lazy-load />
+        <view class="goods-info">
+          <view class="goods-name">{{item.name}}</view>
+          <view class="goods-price" wx:if="{{item.price > 0}}">¥{{item.priceText}}</view>
+        </view>
+        <view class="stepper">
+          <view class="step-btn minus" data-id="{{item._id}}" bindtap="onMinus">－</view>
+          <text class="step-num">{{item.num}}</text>
+          <view class="step-btn plus" data-id="{{item._id}}" bindtap="onPlus">＋</view>
+        </view>
+      </view>
+    </scroll-view>
+
+    <!-- 弹窗底部确认下单 -->
+    <view class="detail-ft safe-bottom">
+      <view class="btn btn-primary btn-block" bindtap="goConfirm">确认下单</view>
+    </view>
+  </view>
+
+  <!-- 悬浮条 -->
+  <view class="cart-bar" bindtap="toggleDetail">
+    <view class="bar-icon">
+      <view class="icon-cart"></view>
+      <view class="badge" wx:if="{{totalNum > 0}}">{{totalNum}}</view>
+    </view>
+    <view class="bar-text">
+      <block wx:if="{{totalPrice > 0}}">
+        <text class="bar-price">¥{{totalPriceText}}</text>
+        <text class="bar-tip">共 {{totalNum}} 份 · 点击查看详情</text>
+      </block>
+      <block wx:else>
+        <text class="bar-price">已选 {{totalNum}} 份</text>
+        <text class="bar-tip">点击查看详情</text>
+      </block>
+    </view>
+  </view>
+</view>

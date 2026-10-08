@@ -1,0 +1,70 @@
+<view class="page page--tab">
+  <!-- 搜索（P2 扩展） -->
+  <view class="search-wrap">
+    <view class="search-box">
+      <input
+        class="search-input"
+        value="{{keyword}}"
+        placeholder="搜索菜名"
+        placeholder-class="search-ph"
+        confirm-type="search"
+        bindinput="onSearchInput"
+        bindconfirm="onSearch"
+      />
+      <view class="search-clear" wx:if="{{keyword}}" bindtap="onClearSearch">×</view>
+    </view>
+  </view>
+
+  <!-- 分类标签栏 -->
+  <scroll-view class="cat-bar" scroll-x enable-flex show-scrollbar="{{false}}">
+    <view class="cat-inner">
+      <view
+        class="cat-item {{activeCat === item ? 'cat-item--active' : ''}}"
+        wx:for="{{categories}}"
+        wx:key="*this"
+        data-cat="{{item}}"
+        bindtap="onSwitchCat"
+      >{{item}}</view>
+    </view>
+  </scroll-view>
+
+  <!-- 菜品列表 -->
+  <view class="dish-list">
+    <skeleton wx:if="{{loading && !showList.length}}" count="4" />
+
+    <block wx:for="{{showList}}" wx:key="_id">
+      <dish-row dish="{{item}}" bind:add="onAddDish" />
+    </block>
+
+    <empty
+      wx:if="{{!loading && !showList.length}}"
+      text="{{allDishes.length ? '没有找到相关菜品' : '还没有上架的菜品'}}"
+      sub="{{allDishes.length ? '换个关键词试试' : '请让家人在「我的 → 家庭管理」中添加'}}"
+    />
+  </view>
+</view>
+
+<!-- 底部悬浮购物车（第 4 个入口） -->
+<cart-bar id="cartBar" />
+
+<!-- 首次使用引导 -->
+<view class="guide-mask" wx:if="{{showGuide}}" catchtouchmove="noop">
+  <view class="guide-card">
+    <view class="guide-title">欢迎使用家庭点菜</view>
+    <view class="guide-steps">
+      <view class="guide-step">
+        <text class="guide-num">1</text>
+        <text class="guide-text">在菜品右侧点「＋」加菜，可重复点</text>
+      </view>
+      <view class="guide-step">
+        <text class="guide-num">2</text>
+        <text class="guide-text">点底部购物车，核对菜品与数量</text>
+      </view>
+      <view class="guide-step">
+        <text class="guide-num">3</text>
+        <text class="guide-text">填昵称 → 提交订单，厨房就能看到</text>
+      </view>
+    </view>
+    <view class="btn btn-primary btn-block" bindtap="onCloseGuide">我知道了</view>
+  </view>
+</view>

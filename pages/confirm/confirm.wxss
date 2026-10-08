@@ -1,0 +1,156 @@
+.page {
+  padding-bottom: 200rpx;
+}
+
+/* ===== 表单 ===== */
+.form-row {
+  display: flex;
+  align-items: center;
+  padding: 28rpx 32rpx;
+  min-height: 104rpx;
+}
+
+.form-row--top {
+  align-items: flex-start;
+}
+
+.form-label {
+  width: 160rpx;
+  font-size: 30rpx;
+  color: #1F2329;
+  flex-shrink: 0;
+}
+
+.required {
+  color: #F5222D;
+}
+
+.form-input {
+  flex: 1;
+  font-size: 30rpx;
+  color: #1F2329;
+  text-align: right;
+}
+
+.form-textarea {
+  flex: 1;
+  font-size: 30rpx;
+  color: #1F2329;
+  min-height: 120rpx;
+  line-height: 1.6;
+}
+
+.form-hint {
+  padding: 0 32rpx 24rpx;
+  font-size: 24rpx;
+  color: #B4B9C0;
+}
+
+.ph {
+  color: #B4B9C0;
+}
+
+/* ===== 菜品明细 ===== */
+.card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28rpx 32rpx 16rpx;
+}
+
+.card-title {
+  font-size: 32rpx;
+  font-weight: 600;
+}
+
+.card-extra {
+  font-size: 26rpx;
+  color: #8A9099;
+}
+
+.goods-item {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 32rpx;
+  border-top: 2rpx solid #F5F6F7;
+}
+
+.goods-img {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 12rpx;
+  background: #F2F3F5;
+  flex-shrink: 0;
+}
+
+.goods-info {
+  flex: 1;
+  margin: 0 20rpx;
+  min-width: 0;
+}
+
+.goods-name {
+  font-size: 30rpx;
+  color: #1F2329;
+}
+
+.goods-price {
+  font-size: 26rpx;
+  color: #FF7A45;
+  margin-top: 6rpx;
+}
+
+.goods-num {
+  font-size: 30rpx;
+  color: #4E5969;
+  flex-shrink: 0;
+}
+
+.total-card {
+  padding: 28rpx 32rpx;
+}
+
+.total-label {
+  font-size: 30rpx;
+  color: #4E5969;
+}
+
+.total-value {
+  font-size: 40rpx;
+  font-weight: 600;
+  color: #FF7A45;
+}
+
+/* ===== 底部提交 ===== */
+.footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #fff;
+  border-top: 2rpx solid #EBEDF0;
+  padding: 16rpx 24rpx 16rpx;
+  display: flex;
+  align-items: center;
+}
+
+.footer-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-price {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #FF7A45;
+}
+
+.footer-count {
+  font-size: 24rpx;
+  color: #8A9099;
+}
+
+.footer-btn {
+  width: 300rpx;
+}

@@ -1,0 +1,42 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/orders/orders",
+    "pages/mine/mine",
+    "pages/confirm/confirm",
+    "pages/admin/admin",
+    "pages/dish-edit/dish-edit",
+    "pages/category/category",
+    "pages/order-admin/order-admin"
+  ],
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#FF7A45",
+    "navigationBarTitleText": "家庭点菜",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#F6F7F9"
+  },
+  "tabBar": {
+    "color": "#8A9099",
+    "selectedColor": "#FF7A45",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "点菜"
+      },
+      {
+        "pagePath": "pages/orders/orders",
+        "text": "订单"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

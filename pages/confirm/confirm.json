@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "确认下单",
+  "usingComponents": {
+    "empty": "/components/empty/index"
+  }
+}

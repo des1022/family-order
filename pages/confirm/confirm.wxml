@@ -1,0 +1,74 @@
+<view class="page" wx:if="{{!emptyCart}}">
+  <!-- 下单人昵称 -->
+  <view class="card">
+    <view class="form-row">
+      <text class="form-label">下单人 <text class="required">*</text></text>
+      <input
+        class="form-input"
+        value="{{nickname}}"
+        maxlength="10"
+        placeholder="例如：爸爸 / 小明"
+        placeholder-class="ph"
+        bindinput="onNicknameInput"
+      />
+    </view>
+    <view class="form-hint">填一次就会记住，下次自动填充</view>
+  </view>
+
+  <!-- 订单备注 -->
+  <view class="card">
+    <view class="form-row form-row--top">
+      <text class="form-label">整单备注</text>
+      <textarea
+        class="form-textarea"
+        value="{{remark}}"
+        maxlength="50"
+        placeholder="少放盐、不要香菜…（选填）"
+        placeholder-class="ph"
+        auto-height
+        bindinput="onRemarkInput"
+      />
+    </view>
+  </view>
+
+  <!-- 菜品明细 -->
+  <view class="card">
+    <view class="card-head">
+      <text class="card-title">菜品明细</text>
+      <text class="card-extra">共 {{totalNum}} 份</text>
+    </view>
+    <view class="goods-item" wx:for="{{list}}" wx:key="_id">
+      <image class="goods-img" src="{{item.image}}" mode="aspectFill" />
+      <view class="goods-info">
+        <view class="goods-name">{{item.name}}</view>
+        <view class="goods-price" wx:if="{{item.price > 0}}">¥{{item.priceText}}</view>
+      </view>
+      <view class="goods-num">×{{item.num}}</view>
+    </view>
+  </view>
+
+  <!-- 合计 -->
+  <view class="card total-card" wx:if="{{totalPrice > 0}}">
+    <view class="row-between">
+      <text class="total-label">合计金额</text>
+      <text class="total-value">¥{{totalPriceText}}</text>
+    </view>
+  </view>
+</view>
+
+<empty
+  wx:else
+  text="购物车是空的"
+  sub="先回首页点几个菜吧"
+/>
+
+<!-- 底部提交栏 -->
+<view class="footer safe-bottom" wx:if="{{!emptyCart}}">
+  <view class="footer-info">
+    <text class="footer-price" wx:if="{{totalPrice > 0}}">¥{{totalPriceText}}</text>
+    <text class="footer-count">共 {{totalNum}} 份</text>
+  </view>
+  <view class="btn btn-primary footer-btn {{submitting ? 'btn-disabled' : ''}}" bindtap="onSubmit">
+    {{submitting ? '提交中…' : '提交订单'}}
+  </view>
+</view>

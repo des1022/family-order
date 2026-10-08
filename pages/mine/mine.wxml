@@ -1,0 +1,49 @@
+<view class="page page--tab">
+  <!-- 昵称 -->
+  <view class="card">
+    <view class="form-row">
+      <text class="form-label">我的昵称</text>
+      <input
+        class="form-input"
+        value="{{nickname}}"
+        maxlength="10"
+        placeholder="例如：爸爸 / 小明"
+        placeholder-class="ph"
+        bindblur="onNicknameBlur"
+      />
+    </view>
+    <view class="form-hint">下单时会自动填充，也用于筛选「我的订单」</view>
+  </view>
+
+  <!-- 使用说明 -->
+  <view class="card">
+    <view class="card-title">使用说明</view>
+    <view class="help-item">
+      <text class="help-num">1</text>
+      <text class="help-text">在「点菜」页浏览菜品，点击右侧「＋」加菜，可重复点。</text>
+    </view>
+    <view class="help-item">
+      <text class="help-num">2</text>
+      <text class="help-text">点底部购物车条，可增减数量、清空，再点「确认下单」。</text>
+    </view>
+    <view class="help-item">
+      <text class="help-num">3</text>
+      <text class="help-text">填写昵称和备注后提交订单，厨房在「订单 → 待做清单」看总量。</text>
+    </view>
+    <view class="help-item">
+      <text class="help-num">4</text>
+      <text class="help-text">管理菜品、改订单状态请从底部「家庭管理」进入，需输入 4 位管理密码。</text>
+    </view>
+  </view>
+
+  <!-- 数据 -->
+  <view class="card">
+    <view class="cell" bindtap="onClearCache">
+      <text class="cell-title">清空本地缓存</text>
+      <text class="cell-arrow">›</text>
+    </view>
+  </view>
+
+  <!-- 隐蔽的管理入口：弱化处理，避免误触 -->
+  <view class="admin-entry" bindtap="goAdmin">家庭管理</view>
+</view>

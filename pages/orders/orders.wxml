@@ -1,0 +1,75 @@
+<view class="page page--tab">
+  <!-- 顶部切换：我的订单 / 全部待做 -->
+  <view class="seg-bar">
+    <view class="seg">
+      <view class="seg-item {{tab === 0 ? 'seg-item--active' : ''}}" data-tab="0" bindtap="onSwitchTab">我的订单</view>
+      <view class="seg-item {{tab === 1 ? 'seg-item--active' : ''}}" data-tab="1" bindtap="onSwitchTab">
+        待做清单<text class="seg-badge" wx:if="{{pendingCount > 0}}">{{pendingCount}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- ===== 我的订单 ===== -->
+  <block wx:if="{{tab === 0}}">
+    <view class="tip-bar" wx:if="{{!myNickname}}">
+      还没设置昵称，当前展示全部订单。去「我的」填写昵称后可只看自己的订单。
+    </view>
+
+    <skeleton wx:if="{{loading && !myOrders.length}}" count="3" />
+
+    <view
+      class="card order-card {{item.status === 2 ? 'order-card--done' : ''}}"
+      wx:for="{{myOrders}}"
+      wx:key="_id"
+    >
+      <view class="order-hd">
+        <text class="order-nick">{{item.nickname}}</text>
+        <text class="tag {{item.status === 2 ? 'tag-gray' : (item.status === 1 ? 'tag-green' : '')}}">{{item.statusText}}</text>
+      </view>
+      <view class="order-goods">
+        <view class="og-row" wx:for="{{item.goods}}" wx:for-item="g" wx:key="id">
+          <text class="og-name">{{g.name}}</text>
+          <text class="og-num">×{{g.num}}</text>
+        </view>
+      </view>
+      <view class="order-remark" wx:if="{{item.remark}}">备注：{{item.remark}}</view>
+      <view class="order-ft">
+        <text class="order-time">{{item.timeText}}</text>
+        <text class="order-total" wx:if="{{item.totalPrice > 0}}">¥{{item.totalPriceText}}</text>
+        <text class="order-total order-total--plain" wx:else>共 {{item.totalNum}} 份</text>
+      </view>
+    </view>
+
+    <empty
+      wx:if="{{!loading && !myOrders.length}}"
+      text="还没有订单"
+      sub="去首页点几个菜吧"
+    />
+  </block>
+
+  <!-- ===== 全部待做清单（按菜品合并） ===== -->
+  <block wx:else>
+    <view class="section-title">待制作 + 制作中 · 共 {{summaryTotalNum}} 份</view>
+
+    <skeleton wx:if="{{loading && !summary.length}}" count="3" />
+
+    <view class="card summary-card">
+      <view class="summary-item" wx:for="{{summary}}" wx:key="id">
+        <image class="summary-img" src="{{item.image}}" mode="aspectFill" lazy-load />
+        <view class="summary-info">
+          <view class="summary-name">{{item.name}}</view>
+          <view class="summary-from">
+            <text class="from-chip" wx:for="{{item.from}}" wx:for-item="f" wx:key="*this">{{f}}</text>
+          </view>
+        </view>
+        <view class="summary-num">×{{item.num}}</view>
+      </view>
+    </view>
+
+    <empty
+      wx:if="{{!loading && !summary.length}}"
+      text="当前没有待做的菜"
+      sub="所有订单都已完成啦"
+    />
+  </block>
+</view>
